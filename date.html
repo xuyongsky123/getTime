@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>简易获取时间段</title>
+</head>
+<body>
+	<input id="date" type="text" name="date" value="2018-03-29" />
+	<button id="btn0">今天</button>
+	<button id="btn1">近3天</button>
+	<button id="btn2">近7天</button>
+	<button id="btn3">近30天</button>
+	<div>当前时间段为：<span id="showDate"></span></div>
+</body>
+<script type="text/javascript">
+	//格式化日期
+	function formatDate(date){
+	    var _year = date.getFullYear();
+	    var _month = date.getMonth()+1;
+	    if (_month < 10) _month = "0" + _month;
+	    var _date = date.getDate();
+	    if (_date < 10) _date = "0" + _date;
+	    return (_year +"-"+ _month +"-"+ _date);
+	}
+	/** 
+	* 获取今天，昨天...
+	*/ 
+	function GetFormatDate(AddDayCount) { 
+	    var dd = new Date();
+	    dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期 
+	    
+	    return formatDate(dd); 
+	}
+
+	//今天
+	document.getElementById('btn0').onclick = function(){
+		var _today = new Date();
+		var _formatToday = formatDate(_today);
+		document.getElementById('showDate').innerHTML = _formatToday;
+	}
+
+	//近3天
+	document.getElementById('btn1').onclick = function(){
+		var _date = document.getElementById('date').value;
+		var _start = GetFormatDate(-2);//近3天开始时间
+		var _end = GetFormatDate(0);//近3天结束时间（即当前时间）
+		document.getElementById('showDate').innerHTML = 'start:'+_start+' '+'end:'+_end;
+	}
+
+	//近7天
+	document.getElementById('btn2').onclick = function(){
+		var _date = document.getElementById('date').value;
+		var _start = GetFormatDate(-6);//近7天开始时间
+		var _end = GetFormatDate(0);//近7天结束时间（即当前时间）
+		document.getElementById('showDate').innerHTML = 'start:'+_start+' '+'end:'+_end;
+	}
+
+	//近30天
+	document.getElementById('btn3').onclick = function(){
+		var _date = document.getElementById('date').value;
+		var _start = GetFormatDate(-29);//近30天开始时间
+		var _end = GetFormatDate(0);//近30天结束时间（即当前时间）
+		document.getElementById('showDate').innerHTML = 'start:'+_start+' '+'end:'+_end;
+	}
+</script>
+</html>
